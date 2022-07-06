@@ -1,87 +1,75 @@
-//CASINO NUMBER GUESSING GAME
-#include<iostream>
-#include<string>
-#include<cstdlib>
-#include<ctime>
+#include <iostream>
+#include <string>
+#include <cstdlib>
+#include <ctime>
 using namespace std;
-
 void rules()
 {
-    cout << "*****CASINO NUMBER GUESSING RULES!*****\n";
-    cout << "Choose a number between 1 to 10\n";
-    cout << "Winner gets 10 times of the money bet\n";
-    cout << "If wrong bet, you lose the amount you bet\n";
+    cout << "\n\t\t*****CASINO NUMBER GUESSING RULES!*****\n";
+    cout << "\t1. Choose a number between 1 to 10\n";
+    cout << "\t2. Winner gets 10 times of the money bet\n";
+    cout << "\t3. Wrong bet, and you lose the amount you bet\n\n";
 }
-
 int main()
 {
-    string PlayerName;
+    string playerName;
     int balance;
     int bettingAmount;
     int guess;
     int dice;
     char choice;
-    srand(time(0));
 
-    cout << "*****WELCOME TO THE CASINO WORLD!*****";
-    cout << "Enter your name: ";
-    getline(cin, PlayerName);
-    cout << "Enter the starting balance you want to play the game with: $\n\n";
+    srand(time(0)); // "Seed" the random number generator
+    cout << "\n\t\t*****WELCOME TO THE CASINO WORLD*****\n\n";
+    cout << "\n\nWhat's your Name : ";
+    getline(cin, playerName);
+    cout << "\n\nEnter the starting balance to play game : $";
     cin >> balance;
-
     do
     {
-
         rules();
         cout << "\n\nYour current balance is $ " << balance << "\n";
 
         do
         {
-            cout << "Hi! " << PlayerName << ", enter the amount to bet: $";
+            cout << "Hey, " << playerName<<", enter amount to bet : $";
             cin >> bettingAmount;
             if(bettingAmount > balance)
-            {
-                cout << "Betting amount can not be more than the current balance!\n"
-                  << "\n RE-ENTER THE BALANCE\n";
+                cout << "Betting balance can't be more than current balance!\n"
+                       <<"\nRe-enter balance\n ";
         }while(bettingAmount > balance);
 
         do
         {
-        cout << "Guess any number between 1 to 10: ";
-        cin >> guess;
-        if(guess <= 0 || guess > 10)
+            cout << "Guess any betting number between 1 & 10 :";
+            cin >> guess;
+            if(guess <= 0 || guess > 10)
+                cout << "\nNumber should be between 1 to 10\n"
+                    <<"Re-enter number:\n ";
+        }while(guess <= 0 || guess > 10);
+        dice = rand()%10 + 1;
+        if(dice == guess)
         {
-            cout << "\nNumber should be between 1 to 10\n"
-                 << "RE-ENTER THE NUMBER\n";
-        }
-        }while(guess <=0 || guess > 10);
-
-        dice = (rand()%10)+1;
-
-        if(guess == dice)
-        {
-            cout << "\nWHOO!!! You have won $"<< bettingAmount*10;
-            balance = balance + bettingAmount*10;
-
+            cout << "\n\nWHOOO Congratulations!! You have won Rs." << bettingAmount * 10;
+            balance = balance + bettingAmount * 10;
         }
         else
         {
-            cout << "OOPS, Better luck nexttime!! You have lost $" << bettingAmount;
+            cout << "Oops, better luck next time !! You lost $ "<< bettingAmount <<"\n";
             balance = balance - bettingAmount;
         }
-
-        cout << "\nThe winning number was : "<< dice<<"\n";
-        cout << "\n"<<PlayerName<< ", You have a balance amount of $"<< balance<< "\n";
+        cout << "\nThe winning number was : " << dice <<"\n";
+        cout << "\n"<<playerName<<", You have balance of $ " << balance << "\n";
         if(balance == 0)
         {
             cout << "You have no money to play ";
+            break;
         }
-
-        cout << "\nDo you want to play again (y/n)? ";
+        cout << "\n\n-->Do you want to play again (y/n)? ";
         cin >> choice;
-    }while(choice == 'Y' || choice =='y');
-
-    cout << "\n\n\nThanks for playing the game. Your balance is $ "<< balance<<"\n\n";
+    }while(choice =='Y'|| choice=='y');
+    cout << "\n\n\n";
+    cout << "\n\nThanks for playing the game. Your balance is $ " << balance << "\n\n";
     return 0;
-
 }
+
